@@ -1,44 +1,12 @@
-from pydantic import BaseModel
-from typing import List
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
+class Todo(Base):
+    __tablename__ = 'todo'
+    id = Column(Integer, primary_key=True, index=True)
+    item = Column(String)
 
 
-class Todo(BaseModel):
-    id: int
-    item: str
 
-    class Config:
-        schema_extra = {
-            "example": {
-                "id": 1,
-                "item": "Example schema!"
-            }
-        }
-
-
-class TodoItem(BaseModel):
-    item: str
-
-    class Config:
-        schema_extra = {
-            "example": {
-                "item": "Example Schema!"
-            }
-        }
-
-
-class TodoItems(BaseModel):
-    todos: List[TodoItem]
-
-    class Config:
-        schema_extra = {
-            "example": {
-                "todos": [
-                    {
-                        "item": "Example schema 1!"
-                    },
-                    {
-                        "item": "Example schema 2!"
-                    }
-                ]
-            }
-        }
