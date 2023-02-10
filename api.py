@@ -1,5 +1,7 @@
 from fastapi import FastAPI
-from todo import todo_router
+from Todo.view import todo_router
+from User.view import user_router
+
 import uvicorn
 from fastapi_sqlalchemy import DBSessionMiddleware
 import os
@@ -18,7 +20,8 @@ async def welcome() -> dict:
     return {"message": "Hello World"}
 
 
-app.include_router(todo_router)
+app.include_router(todo_router, prefix="/todos", tags=["todos"])
+app.include_router(user_router, prefix="/users", tags=["users"])
 
 # To run locally
 if __name__ == '__main__':

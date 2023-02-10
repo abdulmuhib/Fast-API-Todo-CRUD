@@ -22,13 +22,17 @@ config.set_main_option('sqlalchemy.url', os.environ['DATABASE_URL'])
 # This line sets up loggers basically.
 fileConfig(config.config_file_name)
 
-import model
+# from sqlalchemy.ext.declarative import declarative_base
+#
+# Base = declarative_base()
 
-# add your model's MetaData object here
-# for 'autogenerate' support
-# from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
-target_metadata = model.Base.metadata
+from base import Base
+
+# This two won't be referenced, but *have* to be imported to populate `Base.metadata`
+from User.db_models import User
+from Todo.db_models import Todo
+
+target_metadata = Base.metadata
 
 
 # other values from the config, defined by the needs of env.py,
